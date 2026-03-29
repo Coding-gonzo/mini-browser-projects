@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginner Encoder/Decoder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="glass-card">
+        <h1>Encoder/Decoder</h1>
+        <p class="desc">Instantly convert text to code and back.</p>
+
+        <div class="input-section">
+            <label>Input Text or Code</label>
+            <textarea id="mainInput" placeholder="Enter text here..."></textarea>
+        </div>
+
+        <div class="actions">
+            <button onclick="process('encode')" class="btn-primary">Encode to Code ↓</button>
+            <button onclick="process('decode')" class="btn-secondary">Decode to Text ↑</button>
+        </div>
+
+        <div class="output-section">
+            <label>Result</label>
+            <div id="mainOutput" class="output-box">Your result will appear here...</div>
+            <button onclick="copyResult()" class="btn-copy">Copy Result</button>
+        </div>
+
+        <button onclick="clearAll()" class="btn-clear">Clear Everything</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

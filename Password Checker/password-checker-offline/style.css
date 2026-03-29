@@ -1,0 +1,256 @@
+:root {
+    --bg-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-main: #333;
+    --text-secondary: #888;
+    --border-radius: 12px;
+    --primary-color: #4a90e2;
+    --weak-color: #e74c3c;
+    --medium-color: #f1c40f;
+    --strong-color: #2ecc71;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-main);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.app-shell {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 100%;
+    max-width: 450px;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.eyebrow {
+    margin: 0 0 0.35rem;
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+h1 {
+    margin: 0 0 1rem;
+    text-align: center;
+    font-size: 1.65rem;
+    color: var(--text-main);
+}
+
+.intro {
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.field-label {
+    display: block;
+    margin-bottom: 0.55rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.input-row {
+    position: relative;
+    margin-bottom: 1.25rem;
+}
+
+.input-row input {
+    width: 100%;
+    padding: 15px 110px 15px 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-row input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.input-row button {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.3rem 0.45rem;
+}
+
+.input-row button:focus {
+    outline: 2px solid rgba(74, 144, 226, 0.3);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+.meter {
+    height: 6px;
+    width: 100%;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+    width: 0;
+    background: var(--weak-color);
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.headline-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-top: 0.85rem;
+}
+
+.score-label {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.score-value {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.length-info {
+    margin: 0.35rem 0 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.summary {
+    margin: 0.5rem 0 1.5rem;
+    min-height: 20px;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+}
+
+.panel {
+    margin-top: 1.3rem;
+}
+
+.panel h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.checklist,
+.notes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checklist li,
+.notes li {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.checklist li::before,
+.notes li::before {
+    flex: 0 0 16px;
+    display: inline-flex;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.checklist li::before {
+    content: "×";
+    color: var(--weak-color);
+}
+
+.checklist li.pass {
+    color: var(--text-main);
+}
+
+.checklist li.pass::before {
+    content: "✓";
+    color: var(--strong-color);
+}
+
+.checklist li.fail::before {
+    content: "×";
+    color: var(--weak-color);
+}
+
+.notes li::before {
+    content: "•";
+    color: var(--primary-color);
+}
+
+.noscript {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 12px 16px;
+    text-align: center;
+    background: #fff2f0;
+    color: var(--weak-color);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 520px) {
+    .card {
+        padding: 1.4rem;
+    }
+
+    .headline-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .input-row input {
+        padding-right: 95px;
+    }
+}

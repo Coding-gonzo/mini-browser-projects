@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Toast</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="btn-container">
+        <button class="success" onclick="createToast('success', 'Success', 'Data saved successfully!')">Success</button>
+        <button class="error" onclick="createToast('error', 'Error', 'Failed to connect to server.')">Error</button>
+        <button class="warning" onclick="createToast('warning', 'Warning', 'Storage is 90% full.')">Warning</button>
+        <button class="info" onclick="createToast('info', 'Info', 'New update available.')">Info</button>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

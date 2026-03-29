@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Follow Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="card">
+        <img src="https://cdn.pixabay.com/photo/2022/03/24/15/46/beauty-7089300_1280.jpg" alt="Paul Atreides" />
+        <section>
+            <h2>Maria Mendoza</h2>
+            <p>Dukesa ng Angkan. Tadhana ng Hinaharap. Tinig ng Propesiya.</p>
+            <div>
+                <div class="tag" aria-label="15 million followers">
+                    <i class="fa-solid fa-user"></i> 15M
+                </div>
+                <button type="button">Follow</button>
+            </div>
+        </section>
+    </div>
+
+    <div class="card dark">
+        <img src="https://cdn.pixabay.com/photo/2025/10/24/03/17/tranquil-scene-9913086_1280.jpg" alt="Paul Atreides" />
+        <section>
+            <h2>Isabel Flores</h2>
+            <p>Ang Ipinanganak sa Hula. Ilaw ng mga Nawawala. Emperatris ng Bukas.</p>
+            <div>
+                <div class="tag" aria-label="15 million followers">
+                    <i class="fa-solid fa-crown"></i> 15M
+                </div>
+                <button type="button">Follow</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Select all buttons inside cards
+        const buttons = document.querySelectorAll('.card button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Toggle the 'following' class for the CSS animation
+                button.classList.toggle('following');
+
+                // Update text content based on state
+                if (button.classList.contains('following')) {
+                    button.textContent = 'Following';
+                    button.setAttribute('aria-pressed', 'true');
+                } else {
+                    button.textContent = 'Follow';
+                    button.setAttribute('aria-pressed', 'false');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

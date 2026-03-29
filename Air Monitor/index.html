@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Monitor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="simple-card">
+    <div class="search-row">
+        <button class="btn-secondary" onclick="geoLocate()" title="My Location"><i class="fas fa-location-arrow"></i></button>
+        <div class="input-group">
+            <input type="text" id="city-input" placeholder="Search City..." onkeypress="handleEnter(event)">
+        </div>
+        <button onclick="getAQI()">
+            <i class="fas fa-search" id="icon-search"></i>
+            <div class="spinner" id="icon-spinner"></div>
+        </button>
+    </div>
+
+    <div class="gauge-container">
+        <svg class="gauge-svg" viewBox="0 0 200 200">
+            <circle class="gauge-bg" cx="100" cy="100" r="75"></circle>
+            <circle class="gauge-fill" id="progress-arc" cx="100" cy="100" r="75"></circle>
+        </svg>
+    </div>
+
+    <div class="score-area">
+        <div class="aqi-value" id="aqi-num">--</div>
+        <div class="aqi-status" id="aqi-text">Start Search</div>
+    </div>
+
+    <div class="stats-grid" id="stats-grid" style="opacity: 0.5;">
+        <div class="stat-box">PM2.5<span class="stat-num" id="v-pm25">-</span></div>
+        <div class="stat-box">PM10<span class="stat-num" id="v-pm10">-</span></div>
+        <div class="stat-box">O3<span class="stat-num" id="v-o3">-</span></div>
+        <div class="stat-box">Wind<span class="stat-num" id="v-wind">-</span></div>
+    </div>
+
+    <div class="location-info" id="loc-display">
+        Enter city or use location button
+    </div>
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>

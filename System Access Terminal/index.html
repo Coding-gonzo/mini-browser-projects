@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Access Terminal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <button id="fullscreen-btn" onclick="enterFullScreen()">[ ] Go Full Screen</button>
+
+    <div id="terminal-overlay">
+        <div id="typing-text"></div><span class="cursor"></span>
+        <br>
+        <button class="btn-access" onclick="accessGranted()">Grant Access</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

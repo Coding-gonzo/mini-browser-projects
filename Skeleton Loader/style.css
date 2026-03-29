@@ -1,0 +1,116 @@
+:root {
+    /* Theme Variables */
+    --sk-bg: #e0e0e0;
+    --sk-highlight: #f5f5f5;
+    --card-bg: #ffffff;
+    --body-bg: #f8f9fa;
+    --text-color: #333333;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --gap: 24px;
+    --radius: 12px;
+    --shimmer-duration: 2s;
+}
+
+body.dark-mode {
+    --sk-bg: #333333;
+    --sk-highlight: #444444;
+    --card-bg: #1e1e1e;
+    --body-bg: #121212;
+    --text-color: #f5f5f5;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--body-bg);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    margin: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle {
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.1s, background-color 0.3s, color 0.3s;
+}
+
+.theme-toggle:active {
+    transform: scale(0.96);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--gap);
+    width: 100%;
+    max-width: 1000px;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.skeleton-card {
+    background: var(--card-bg);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* The Shimmer Animation Class */
+.skeleton-pulse {
+    background: linear-gradient(90deg,
+            var(--sk-bg) 0%,
+            var(--sk-highlight) 50%,
+            var(--sk-bg) 100%);
+    background-size: 200% 100%;
+    border-radius: 6px;
+    animation: shimmer var(--shimmer-duration) infinite linear;
+    /* Hardware acceleration hint */
+    transform: translateZ(0);
+}
+
+/* Element shapes */
+.sk-image {
+    height: 180px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.sk-title {
+    height: 28px;
+    width: 75%;
+}
+
+.sk-text {
+    height: 16px;
+    width: 100%;
+}
+
+.sk-text-short {
+    height: 16px;
+    width: 60%;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}

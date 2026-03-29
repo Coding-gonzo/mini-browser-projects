@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+    <meta name="referrer" content="no-referrer">
+    <title>Offline Password Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app-shell">
+        <section class="card">
+            <p class="eyebrow">Lokal im Browser</p>
+            <h1>Offline Password Checker</h1>
+            <p class="intro">
+                Dieses Tool bewertet Passwörter nur lokal im Browser. Es gibt keine externen Requests,
+                keine Formular-Übertragung und keine Speicherung der Eingabe.
+            </p>
+
+            <label class="field-label" for="passwordInput">Passwort oder Passphrase</label>
+            <div class="input-row">
+                <input
+                    id="passwordInput"
+                    type="password"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    autocorrect="off"
+                    spellcheck="false"
+                    placeholder="z. B. eine lange, einzigartige Passphrase"
+                >
+                <button id="toggleButton" type="button" aria-label="Passwort einblenden">Anzeigen</button>
+            </div>
+
+            <div class="meter" aria-hidden="true">
+                <div class="meter-fill" id="meterFill"></div>
+            </div>
+
+            <div class="headline-row">
+                <p class="score-label">Bewertung</p>
+                <p class="score-value" id="scoreLabel">Noch keine Eingabe</p>
+            </div>
+            <p class="length-info" id="lengthInfo">0 Zeichen</p>
+
+            <p class="summary" id="summary">
+                Lange, einzigartige Passphrasen schneiden deutlich besser ab als kurze Regelpasswörter.
+            </p>
+
+            <section class="panel">
+                <h2>Was geprüft wird</h2>
+                <ul class="checklist" id="checklist">
+                    <li id="check-length">Mindestens 12 Zeichen</li>
+                    <li id="check-long-length">16 oder mehr Zeichen</li>
+                    <li id="check-variety">Mehrere Zeichentypen oder gute Passphrase-Struktur</li>
+                    <li id="check-unique">Hoher Anteil unterschiedlicher Zeichen</li>
+                    <li id="check-patterns">Keine offensichtlichen Muster oder Sequenzen</li>
+                    <li id="check-common">Keine häufigen Passwörter oder sehr typischen Begriffe</li>
+                </ul>
+            </section>
+
+            <section class="panel">
+                <h2>Hinweise</h2>
+                <ul class="notes" id="notes">
+                    <li>Prüfung startet nach der Eingabe.</li>
+                </ul>
+            </section>
+        </section>
+    </main>
+
+    <noscript>
+        <p class="noscript">JavaScript wird benötigt, damit die lokale Prüfung funktioniert.</p>
+    </noscript>
+
+    <script src="script.js"></script>
+</body>
+</html>

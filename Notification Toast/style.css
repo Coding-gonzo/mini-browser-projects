@@ -1,0 +1,301 @@
+:root {
+    /* Use min() to ensure it doesn't overflow mobile screens */
+    --toast-width: min(400px, 90vw);
+    --toast-bg: #ffffff;
+    --toast-text: #333333;
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
+    --warning-color: #f1c40f;
+    --info-color: #3498db;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    /* Add padding to body prevent edge collision */
+}
+
+/* --- BUTTONS --- */
+.btn-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    transition: transform 0.2s, opacity 0.2s;
+    flex: 1 1 auto;
+    /* Buttons grow to fill space on mobile */
+    min-width: 120px;
+    /* Minimum touch target size */
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+button.success {
+    background-color: var(--success-color);
+}
+
+button.error {
+    background-color: var(--error-color);
+}
+
+button.warning {
+    background-color: var(--warning-color);
+}
+
+button.info {
+    background-color: var(--info-color);
+}
+
+/* --- NOTIFICATION CONTAINER --- */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+    /* Ensure container doesn't block clicks when empty */
+    pointer-events: none;
+}
+
+/* --- THE TOAST --- */
+.toast {
+    width: var(--toast-width);
+    background: var(--toast-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: flex-start;
+    /* Better alignment for long text */
+    padding: 15px 20px;
+    position: relative;
+    overflow: hidden;
+    /* Re-enable pointer events for the toasts themselves */
+    pointer-events: auto;
+    animation: slideInRight 0.4s ease forwards;
+    border-left: 6px solid;
+    backdrop-filter: blur(10px);
+}
+
+/* Toast Types Colors */
+.toast.success {
+    border-color: var(--success-color);
+}
+
+.toast.error {
+    border-color: var(--error-color);
+}
+
+.toast.warning {
+    border-color: var(--warning-color);
+}
+
+.toast.info {
+    border-color: var(--info-color);
+}
+
+/* Icon Wrapper */
+.toast-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 24px;
+    margin-top: 2px;
+    /* Visual alignment fix */
+    flex-shrink: 0;
+    /* Prevent icon from shrinking */
+}
+
+.toast.success .toast-icon {
+    color: var(--success-color);
+}
+
+.toast.error .toast-icon {
+    color: var(--error-color);
+}
+
+.toast.warning .toast-icon {
+    color: var(--warning-color);
+}
+
+.toast.info .toast-icon {
+    color: var(--info-color);
+}
+
+/* Content */
+.toast-content {
+    flex: 1;
+}
+
+.toast-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #111;
+    font-size: 16px;
+}
+
+.toast-message {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Close Button */
+.toast-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #aaa;
+    padding: 0;
+    margin-left: 10px;
+    margin-top: -2px;
+    min-width: auto;
+    /* Override button generic style */
+    width: auto;
+    flex: 0 0 auto;
+    transition: color 0.3s;
+}
+
+.toast-close:hover {
+    color: #333;
+}
+
+/* Progress Bar */
+.progress-track {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 100%;
+    /* Colors handled via JS/CSS specificity */
+}
+
+.toast.success .progress-bar {
+    background-color: var(--success-color);
+}
+
+.toast.error .progress-bar {
+    background-color: var(--error-color);
+}
+
+.toast.warning .progress-bar {
+    background-color: var(--warning-color);
+}
+
+.toast.info .progress-bar {
+    background-color: var(--info-color);
+}
+
+/* --- ANIMATIONS --- */
+
+/* Desktop Animation (Slide from Right) */
+@keyframes slideInRight {
+    from {
+        transform: translateX(110%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile Animation (Slide from Top) */
+@keyframes slideInTop {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+@keyframes timer {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+.toast:hover .progress-bar {
+    animation-play-state: paused;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media screen and (max-width: 480px) {
+    #toast-container {
+        right: 0;
+        left: 50px;
+        /* Center container */
+        top: 10px;
+        align-items: center;
+        /* Center items inside */
+        width: 100%;
+        pointer-events: none;
+    }
+
+    .toast {
+        /* On mobile, slide down from top */
+        animation: slideInTop 0.4s ease forwards;
+        width: 60%;
+        /* Slight margin on sides */
+        margin: 0 auto;
+    }
+
+    .btn-container {
+        flex-direction: column;
+        width: 100%;
+    }
+}
