@@ -83,7 +83,7 @@ This line starts right below the previous one.
 
 ## Links
 
-[OpenAI](https://openai.com)
+[Git](https://github.com/Coding-gonzo/mini-browser-projects)
 
 You can also create links with readable labels inside your documentation.
 
