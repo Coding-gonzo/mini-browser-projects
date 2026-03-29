@@ -1,0 +1,300 @@
+:root {
+    --bg-body: #0f172a;
+    /* Deep Slate */
+    --bg-panel: #1e293b;
+    /* Lighter Slate */
+    --border-color: #334155;
+    --accent-primary: #3b82f6;
+    /* Bright Blue */
+    --accent-hover: #2563eb;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --success: #10b981;
+
+    /* Editor specific */
+    --editor-bg: #1e293b;
+    --preview-bg: #0f172a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- 2. Glass Header --- */
+header {
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    height: 64px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+}
+
+.brand-icon {
+    background: linear-gradient(135deg, var(--accent-primary), #8b5cf6);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* --- Buttons --- */
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    border: 1px solid var(--border-color);
+    background: #1e293b;
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    border-color: var(--accent-primary);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* --- 3. Main Workspace --- */
+.workspace {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 64px);
+    position: relative;
+}
+
+.pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    position: relative;
+}
+
+/* Label floating inside pane */
+.pane-label {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: rgba(30, 41, 59, 0.8);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    pointer-events: none;
+    /* Let clicks pass through */
+    z-index: 5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Editor --- */
+.editor-pane {
+    border-right: 1px solid var(--border-color);
+    background-color: var(--editor-bg);
+}
+
+textarea#editor {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: var(--text-main);
+    border: none;
+    padding: 60px 24px 24px 24px;
+    /* Top padding for label space */
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    resize: none;
+    outline: none;
+}
+
+/* Subtle focus glow on the editor pane container */
+.editor-pane:focus-within {
+    box-shadow: inset 0 0 0 1px var(--accent-primary);
+}
+
+/* --- Preview --- */
+.preview-pane {
+    background-color: var(--preview-bg);
+}
+
+#preview {
+    flex: 1;
+    padding: 60px 40px 40px 40px;
+    overflow-y: auto;
+    line-height: 1.8;
+    color: #cbd5e1;
+}
+
+/* --- Markdown Styling --- */
+#preview h1,
+#preview h2,
+#preview h3 {
+    color: #fff;
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    font-weight: 600;
+}
+
+#preview h1 {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.3em;
+}
+
+#preview a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+#preview a:hover {
+    text-decoration: underline;
+}
+
+#preview code {
+    background: #334155;
+    color: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85em;
+}
+
+#preview pre {
+    background: #1e293b;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+    margin-bottom: 16px;
+}
+
+#preview pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+}
+
+#preview blockquote {
+    border-left: 3px solid var(--accent-primary);
+    background: rgba(59, 130, 246, 0.1);
+    padding: 12px 16px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+    color: #94a3b8;
+}
+
+#preview table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+
+#preview th,
+#preview td {
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    text-align: left;
+}
+
+#preview th {
+    background: #1e293b;
+}
+
+#preview img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* --- Mobile Response --- */
+@media (max-width: 768px) {
+    .workspace {
+        flex-direction: column;
+    }
+
+    .editor-pane {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        height: 50%;
+    }
+
+    #preview {
+        padding: 50px 20px 20px 20px;
+    }
+
+    textarea#editor {
+        padding: 50px 20px 20px 20px;
+    }
+}

@@ -43,6 +43,7 @@ Then open the relevant project folder in your browser.
 | `Glassmorphism Lockpad` | A glassmorphism-inspired keypad and restricted-access UI concept. |
 | `Hacker Loader` | A stylized loading screen with hacker-terminal aesthetics. |
 | `Interactive Follow Card` | Social-style profile cards with interactive follow actions. |
+| `Markdown Editor` | A live Markdown editor with preview, HTML copy, and `.md` download actions. |
 | `Notification Toast` | A toast notification demo with success, error, warning, and info states. |
 | `Password Checker` | A password strength analyzer interface. |
 | `Password Checker/password-checker-offline` | An offline password checker variant with local-only analysis notes. |
@@ -63,6 +64,7 @@ Then open the relevant project folder in your browser.
 |-- Glassmorphism Lockpad/
 |-- Hacker Loader/
 |-- Interactive Follow Card/
+|-- Markdown Editor/
 |-- Notification Toast/
 |-- Password Checker/
 |-- Pro Puzzle Suite/
