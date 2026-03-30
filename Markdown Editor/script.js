@@ -118,8 +118,8 @@ console.log(formatMarkdown("  hello world  "));
 | --- | --- | --- |
 | Bold | \`**text**\` | Yes |
 | Italic | \`*text*\` | Yes |
-| Table | \`| col | col |\` | Yes |
-| Code Block | \`\`\`js\`\`\` | Yes |
+| Table | ` | Yes |
+| Code Block | \`js\` | Yes |
 
 ## Mixed Example
 
