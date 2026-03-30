@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Snippets Index</title>
+  <style>
+    :root {
+      --bg: #0c0f14;
+      --bg-soft: #151b24;
+      --panel: rgba(18, 24, 34, 0.72);
+      --panel-strong: rgba(24, 31, 44, 0.92);
+      --border: rgba(168, 187, 255, 0.18);
+      --text: #edf2ff;
+      --muted: #a3b0c9;
+      --accent: #7cf0d1;
+      --accent-2: #ffd37a;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --font-display: "Segoe UI", "Trebuchet MS", sans-serif;
+      --font-body: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: dark;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124, 240, 209, 0.18), transparent 24rem),
+        radial-gradient(circle at top right, rgba(255, 211, 122, 0.16), transparent 26rem),
+        linear-gradient(160deg, #07090d 0%, #0e131b 42%, #121824 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent 85%);
+    }
+
+    main {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 4rem;
+    }
+
+    .hero,
+    .toolbar {
+      backdrop-filter: blur(18px);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 2.25rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -5rem -6rem auto;
+      width: 18rem;
+      height: 18rem;
+      background: radial-gradient(circle, rgba(124, 240, 209, 0.22), transparent 66%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 1rem 0 0.6rem;
+      max-width: 10ch;
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 42rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .search {
+      flex: 1 1 280px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 0.95rem 1rem 0.95rem 3rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: rgba(7, 10, 16, 0.7);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .search input:focus {
+      border-color: rgba(124, 240, 209, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .search svg {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      width: 1rem;
+      height: 1rem;
+      transform: translateY(-50%);
+      fill: var(--muted);
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      gap: 1rem;
+      padding: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+        var(--panel-strong);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      animation: card-in 0.48s ease both;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      transform: translateY(-4px);
+      border-color: rgba(124, 240, 209, 0.45);
+      background:
+        linear-gradient(180deg, rgba(124, 240, 209, 0.1), rgba(255, 255, 255, 0.03)),
+        var(--panel-strong);
+      outline: none;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--accent-2);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.25;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .path {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.85rem;
+      color: #c5d0e8;
+      word-break: break-word;
+    }
+
+    .footer-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .empty {
+      display: none;
+      padding: 2rem;
+      margin-top: 1rem;
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius);
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .empty.visible {
+      display: block;
+    }
+
+    @keyframes card-in {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        width: min(100% - 1rem, 100%);
+        padding-top: 1rem;
+      }
+
+      .hero,
+      .toolbar {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .footer-line {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <span class="eyebrow">Projektübersicht</span>
+      <h1>Code Snippets</h1>
+      <p class="lead">
+        Zentrale Startseite für die HTML- und JavaScript-Projekte in diesem Repository.
+        Alle Links sind relativ, damit die Übersicht auch in statischen Git-Previews sauber funktioniert.
+      </p>
+    </section>
+
+    <section class="toolbar" aria-label="Projektfilter">
+      <label class="search" for="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10.5 3a7.5 7.5 0 1 1 0 15a7.5 7.5 0 0 1 0-15Zm0 2a5.5 5.5 0 1 0 0 11a5.5 5.5 0 0 0 0-11Zm9.71 13.29l-3.4-3.4a1 1 0 0 0-1.42 1.42l3.4 3.4a1 1 0 1 0 1.42-1.42Z"></path>
+        </svg>
+        <input id="search" type="search" placeholder="Projekt suchen, z. B. puzzle, monitor, terminal" autocomplete="off">
+      </label>
+      <div class="status" id="status">15 Projekte</div>
+    </section>
+
+    <section class="grid" id="projectGrid" aria-live="polite"></section>
+    <div class="empty" id="emptyState">Keine Treffer. Passe den Suchbegriff an.</div>
+  </main>
+
+  <script>
+    const projects = [
+      { title: "3D Parallax Slider", folder: "3D Parallax Slider", href: "./3D%20Parallax%20Slider/index.html" },
+      { title: "3D Neon Cube Modal with Particles", folder: "3D Rubik Cube", href: "./3D%20Rubik%20Cube/index.html" },
+      { title: "Air Monitor", folder: "Air Monitor", href: "./Air%20Monitor/index.html" },
+      { title: "Be My Valentine?", folder: "Be My Valentine", href: "./Be%20My%20Valentine/index.html" },
+      { title: "Beginner Encoder/Decoder", folder: "Beginner Encoder and Decoder", href: "./Beginner%20Encoder%20and%20Decoder/index.html" },
+      { title: "Glassmorphism Lockpad", folder: "Glassmorphism Lockpad", href: "./Glassmorphism%20Lockpad/index.html" },
+      { title: "Hacker Loader", folder: "Hacker Loader", href: "./Hacker%20Loader/index.html" },
+      { title: "Interactive Follow Card", folder: "Interactive Follow Card", href: "./Interactive%20Follow%20Card/index.html" },
+      { title: "Markdown Editor", folder: "Markdown Editor", href: "./Markdown%20Editor/index.html" },
+      { title: "Notification Toast", folder: "Notification Toast", href: "./Notification%20Toast/index.html" },
+      { title: "Password Strength Analyzer", folder: "Password Checker", href: "./Password%20Checker/index.html" },
+      { title: "Pro Puzzle Suite", folder: "Pro Puzzle Suite", href: "./Pro%20Puzzle%20Suite/index.html" },
+      { title: "Rock Paper Scissors Game", folder: "Rock Paper Scissors Game", href: "./Rock%20Paper%20Scissors%20Game/index.html" },
+      { title: "Skeleton Loader", folder: "Skeleton Loader", href: "./Skeleton%20Loader/index.html" },
+      { title: "System Access Terminal", folder: "System Access Terminal", href: "./System%20Access%20Terminal/index.html" }
+    ];
+
+    const grid = document.getElementById("projectGrid");
+    const searchInput = document.getElementById("search");
+    const status = document.getElementById("status");
+    const emptyState = document.getElementById("emptyState");
+
+    function renderCards(query = "") {
+      const normalized = query.trim().toLowerCase();
+      const filtered = projects.filter((project) => {
+        const haystack = `${project.title} ${project.folder}`.toLowerCase();
+        return haystack.includes(normalized);
+      });
+
+      grid.innerHTML = filtered.map((project, index) => `
+        <a class="card" href="${project.href}" style="animation-delay:${index * 40}ms">
+          <div class="card-top">
+            <span class="badge">HTML / JS</span>
+            <span class="cta">Open</span>
+          </div>
+          <div>
+            <h2>${project.title}</h2>
+            <p>Direkter Einstieg in das Projekt.</p>
+          </div>
+          <div class="footer-line">
+            <span class="path">${project.folder}/index.html</span>
+            <span>Preview bereit</span>
+          </div>
+        </a>
+      `).join("");
+
+      const count = filtered.length;
+      status.textContent = normalized ? `${count} von ${projects.length} Projekten` : `${projects.length} Projekte`;
+      emptyState.classList.toggle("visible", count === 0);
+    }
+
+    searchInput.addEventListener("input", (event) => {
+      renderCards(event.target.value);
+    });
+
+    renderCards();
+  </script>
+</body>
+</html>
