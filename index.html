@@ -107,7 +107,7 @@
 
     .lead {
       margin: 0;
-      max-width: 42rem;
+      max-width: 48rem;
       color: var(--muted);
       font-size: 1.05rem;
       line-height: 1.6;
@@ -298,11 +298,11 @@
 <body>
   <main>
     <section class="hero">
-      <span class="eyebrow">Projektübersicht</span>
+      <span class="eyebrow">Projektuebersicht</span>
       <h1>Code Snippets</h1>
       <p class="lead">
-        Zentrale Startseite für die HTML- und JavaScript-Projekte in diesem Repository.
-        Alle Links sind relativ, damit die Übersicht auch in statischen Git-Previews sauber funktioniert.
+        Zentrale Startseite fuer die HTML-, CSS- und JavaScript-Projekte in diesem Repository.
+        Alle Links bleiben relativ, damit die Uebersicht auch in statischen Git-Previews sauber funktioniert.
       </p>
     </section>
 
@@ -313,7 +313,7 @@
         </svg>
         <input id="search" type="search" placeholder="Projekt suchen, z. B. puzzle, monitor, terminal" autocomplete="off">
       </label>
-      <div class="status" id="status">15 Projekte</div>
+      <div class="status" id="status"></div>
     </section>
 
     <section class="grid" id="projectGrid" aria-live="polite"></section>
@@ -322,21 +322,192 @@
 
   <script>
     const projects = [
-      { title: "3D Parallax Slider", folder: "3D Parallax Slider", href: "./3D%20Parallax%20Slider/index.html" },
-      { title: "3D Neon Cube Modal with Particles", folder: "3D Rubik Cube", href: "./3D%20Rubik%20Cube/index.html" },
-      { title: "Air Monitor", folder: "Air Monitor", href: "./Air%20Monitor/index.html" },
-      { title: "Be My Valentine?", folder: "Be My Valentine", href: "./Be%20My%20Valentine/index.html" },
-      { title: "Beginner Encoder/Decoder", folder: "Beginner Encoder and Decoder", href: "./Beginner%20Encoder%20and%20Decoder/index.html" },
-      { title: "Glassmorphism Lockpad", folder: "Glassmorphism Lockpad", href: "./Glassmorphism%20Lockpad/index.html" },
-      { title: "Hacker Loader", folder: "Hacker Loader", href: "./Hacker%20Loader/index.html" },
-      { title: "Interactive Follow Card", folder: "Interactive Follow Card", href: "./Interactive%20Follow%20Card/index.html" },
-      { title: "Markdown Editor", folder: "Markdown Editor", href: "./Markdown%20Editor/index.html" },
-      { title: "Notification Toast", folder: "Notification Toast", href: "./Notification%20Toast/index.html" },
-      { title: "Password Strength Analyzer", folder: "Password Checker", href: "./Password%20Checker/index.html" },
-      { title: "Pro Puzzle Suite", folder: "Pro Puzzle Suite", href: "./Pro%20Puzzle%20Suite/index.html" },
-      { title: "Rock Paper Scissors Game", folder: "Rock Paper Scissors Game", href: "./Rock%20Paper%20Scissors%20Game/index.html" },
-      { title: "Skeleton Loader", folder: "Skeleton Loader", href: "./Skeleton%20Loader/index.html" },
-      { title: "System Access Terminal", folder: "System Access Terminal", href: "./System%20Access%20Terminal/index.html" }
+      {
+        title: "3D Card Animation",
+        folder: "3D Card Animation",
+        href: "./3D%20Card%20Animation/index.html",
+        description: "3D hover cards themed around world-place showcase panels."
+      },
+      {
+        title: "3D Parallax Slider",
+        folder: "3D Parallax Slider",
+        href: "./3D%20Parallax%20Slider/index.html",
+        description: "Layered image slider with a cinematic 3D parallax presentation."
+      },
+      {
+        title: "3D Neon Cube Modal with Particles",
+        folder: "3D Rubik Cube",
+        href: "./3D%20Rubik%20Cube/index.html",
+        description: "Neon-style 3D cube demo with modal and particle-inspired effects."
+      },
+      {
+        title: "Air Monitor",
+        folder: "Air Monitor",
+        href: "./Air%20Monitor/index.html",
+        description: "Dashboard-style air quality and environment monitor interface."
+      },
+      {
+        title: "Animated 3D Card Hover Effect",
+        folder: "Animated 3D Card Hover Effect",
+        href: "./Animated%203D%20Card%20Hover%20Effect/index.html",
+        description: "Fantasy-themed 3D card hover effect with layered artwork."
+      },
+      {
+        title: "Animated 404 Page",
+        folder: "Animated 404 Page not found",
+        href: "./Animated%20404%20Page%20not%20found/index.html",
+        description: "Stylized 404 error page with animated background treatment."
+      },
+      {
+        title: "Animated Login Form with Changing Background",
+        folder: "Animated Login form with Changing Background",
+        href: "./Animated%20Login%20form%20with%20Changing%20Background/index.html",
+        description: "Animated login layout paired with a changing background image panel."
+      },
+      {
+        title: "Animated Login Form",
+        folder: "Animated-Login-form",
+        href: "./Animated-Login-form/index.html",
+        description: "Compact animated login form demo with polished interaction styling."
+      },
+      {
+        title: "Be My Valentine?",
+        folder: "Be My Valentine",
+        href: "./Be%20My%20Valentine/index.html",
+        description: "Playful Valentine interaction page with animated yes and no actions."
+      },
+      {
+        title: "Beginner Encoder/Decoder",
+        folder: "Beginner Encoder and Decoder",
+        href: "./Beginner%20Encoder%20and%20Decoder/index.html",
+        description: "Simple text encoder and decoder utility for beginner experimentation."
+      },
+      {
+        title: "Creepy Eye Button",
+        folder: "Creepy Eye Button",
+        href: "./Creepy%20Eye%20Button/index.html",
+        description: "Interactive button effect with eerie eye animation behavior."
+      },
+      {
+        title: "Flower Animation",
+        folder: "Flower Animation",
+        href: "./Flower%20Animation/index.html",
+        description: "Decorative flower animation built with lightweight front-end code."
+      },
+      {
+        title: "Glassmorphism Lockpad",
+        folder: "Glassmorphism Lockpad",
+        href: "./Glassmorphism%20Lockpad/index.html",
+        description: "Glassmorphism-inspired keypad and restricted-access UI concept."
+      },
+      {
+        title: "Glowing Button Effect",
+        folder: "Glowing Button Effect",
+        href: "./Glowing%20Button%20Effect/index.html",
+        description: "Neon button hover effect focused on lighting and feedback."
+      },
+      {
+        title: "Glowing Navigation Menu",
+        folder: "Glowing Navigation Menu",
+        href: "./Glowing%20Navigation%20Menu/index.html",
+        description: "Animated navigation menu with glowing active-state treatment."
+      },
+      {
+        title: "Glowing Product Card",
+        folder: "Glowing Product Card",
+        href: "./Glowing%20Product%20Card/index.html",
+        description: "Stylized product card concept with glowing catalog presentation."
+      },
+      {
+        title: "Hacker Loader",
+        folder: "Hacker Loader",
+        href: "./Hacker%20Loader/index.html",
+        description: "Loading screen with hacker-terminal aesthetics and motion."
+      },
+      {
+        title: "Interactive Follow Card",
+        folder: "Interactive Follow Card",
+        href: "./Interactive%20Follow%20Card/index.html",
+        description: "Social-style profile cards with interactive follow actions."
+      },
+      {
+        title: "Interactive Social Icons",
+        folder: "Interactive Social Icons",
+        href: "./Interactive%20Social%20Icons/index.html",
+        description: "Hover-driven social icon set with interactive motion."
+      },
+      {
+        title: "Loading Animation",
+        folder: "Loading Animation",
+        href: "./Loading%20Animation/index.html",
+        description: "Playful loading animation with an off-track motion concept."
+      },
+      {
+        title: "Markdown Editor",
+        folder: "Markdown Editor",
+        href: "./Markdown%20Editor/index.html",
+        description: "Live Markdown editor with preview, copy, and download actions."
+      },
+      {
+        title: "Notification Toast",
+        folder: "Notification Toast",
+        href: "./Notification%20Toast/index.html",
+        description: "Toast notification demo with success, error, warning, and info states."
+      },
+      {
+        title: "Password Strength Analyzer",
+        folder: "Password Checker",
+        href: "./Password%20Checker/index.html",
+        description: "Password strength analyzer interface with instant feedback."
+      },
+      {
+        title: "Pro Puzzle Suite",
+        folder: "Pro Puzzle Suite",
+        href: "./Pro%20Puzzle%20Suite/index.html",
+        description: "Browser puzzle game interface with guide, reset, replay, and modals."
+      },
+      {
+        title: "Rock Paper Scissors Game",
+        folder: "Rock Paper Scissors Game",
+        href: "./Rock%20Paper%20Scissors%20Game/index.html",
+        description: "Classic rock-paper-scissors browser game."
+      },
+      {
+        title: "Rotational Slider",
+        folder: "Rotational Slider",
+        href: "./Rotational%20Slider/index.html",
+        description: "Rotating travel-style image slider presentation."
+      },
+      {
+        title: "Skeleton Loader",
+        folder: "Skeleton Loader",
+        href: "./Skeleton%20Loader/index.html",
+        description: "Skeleton loading UI demo with theme switching."
+      },
+      {
+        title: "Spider Clock Animation",
+        folder: "Spider Clock Animation",
+        href: "./Spider%20Clock%20Animation/index.html",
+        description: "Spider-themed animated clock interface."
+      },
+      {
+        title: "Spider Cursor Animation",
+        folder: "Spider Cursor Animation",
+        href: "./Spider%20Cursor%20Animation/index.html",
+        description: "Spider-themed custom cursor animation demo."
+      },
+      {
+        title: "Star Particle Animation",
+        folder: "Star Particle Animation",
+        href: "./Star%20Particle%20Animation/index.html",
+        description: "Decorative particle-style star animation effect."
+      },
+      {
+        title: "System Access Terminal",
+        folder: "System Access Terminal",
+        href: "./System%20Access%20Terminal/index.html",
+        description: "Faux terminal and system access interface with fullscreen-style interaction."
+      }
     ];
 
     const grid = document.getElementById("projectGrid");
@@ -347,7 +518,7 @@
     function renderCards(query = "") {
       const normalized = query.trim().toLowerCase();
       const filtered = projects.filter((project) => {
-        const haystack = `${project.title} ${project.folder}`.toLowerCase();
+        const haystack = `${project.title} ${project.folder} ${project.description}`.toLowerCase();
         return haystack.includes(normalized);
       });
 
@@ -359,7 +530,7 @@
           </div>
           <div>
             <h2>${project.title}</h2>
-            <p>Direkter Einstieg in das Projekt.</p>
+            <p>${project.description}</p>
           </div>
           <div class="footer-line">
             <span class="path">${project.folder}/index.html</span>
