@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIPHERWATCH // Security Operations</title>
+<style>
+  :root {
+    --bg: #000000;
+    --fg: #33ff33;
+    --fg-dim: #1c7a1c;
+    --fg-bright: #7dffb0;
+    --alert: #ffb000;
+    --err: #ff4444;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(51,255,51,0.025) 0px,
+      rgba(51,255,51,0.025) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    z-index: 999;
+  }
+
+  a { color: var(--fg-bright); }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px dashed var(--fg-dim);
+    margin: 36px 0;
+  }
+
+  /* ---------- Terminal-Fensterrahmen ---------- */
+  .termbar {
+    border-bottom: 1px solid var(--fg-dim);
+    padding: 10px 24px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--fg-dim);
+    font-size: 13px;
+  }
+  .termbar .dots span {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border: 1px solid var(--fg-dim);
+    margin-right: 5px;
+  }
+
+  /* ---------- Hero / Boot-Sequenz ---------- */
+  .hero { padding: 60px 0 20px; }
+
+  .boot-line {
+    color: var(--fg-dim);
+    font-size: 13px;
+    margin: 2px 0;
+  }
+  .boot-line .ok { color: var(--fg-bright); }
+
+  .brand {
+    margin: 26px 0 6px;
+    font-size: 34px;
+    letter-spacing: 2px;
+    color: var(--fg-bright);
+  }
+  .brand::before { content: "> "; color: var(--fg-dim); }
+
+  .tagline {
+    color: var(--fg);
+    max-width: 46ch;
+    margin-bottom: 30px;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 9px; height: 16px;
+    background: var(--fg);
+    vertical-align: -2px;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-block;
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--fg);
+    padding: 9px 20px;
+    font-family: inherit;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn::before { content: "["; color: var(--fg-dim); margin-right: 6px; }
+  .btn::after  { content: "]"; color: var(--fg-dim); margin-left: 6px; }
+  .btn:hover { background: var(--fg); color: var(--bg); }
+  .btn:hover::before, .btn:hover::after { color: var(--bg); }
+  .btn.primary { border-color: var(--fg-bright); color: var(--fg-bright); }
+  .btn.primary:hover { background: var(--fg-bright); color: var(--bg); }
+
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; margin: 20px 0 10px; }
+
+  /* ---------- Sektionstitel im Menüstil ---------- */
+  .section-head {
+    color: var(--fg-dim);
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+  .section-head b { color: var(--fg-bright); font-weight: normal; }
+
+  h2 {
+    color: var(--fg-bright);
+    font-weight: normal;
+    font-size: 20px;
+    margin: 0 0 18px 0;
+  }
+
+  /* ---------- Leistungen: nummeriertes Menü ---------- */
+  .menu-item {
+    border: 1px solid var(--fg-dim);
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 14px;
+    position: relative;
+  }
+  .menu-item .num {
+    color: var(--fg-dim);
+    border-right: 1px dashed var(--fg-dim);
+  }
+  .menu-item h3 {
+    margin: 0 0 4px 0;
+    color: var(--fg-bright);
+    font-size: 15px;
+    font-weight: normal;
+  }
+  .menu-item p {
+    margin: 0;
+    color: var(--fg);
+    font-size: 13.5px;
+  }
+  .menu-item:hover { border-color: var(--fg-bright); }
+
+  /* ---------- Statuszeile / Kennzahlen ---------- */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--fg-dim);
+  }
+  .stat {
+    padding: 18px;
+    text-align: left;
+    border-right: 1px dashed var(--fg-dim);
+  }
+  .stat:last-child { border-right: none; }
+  .stat .n { color: var(--fg-bright); font-size: 24px; display: block; }
+  .stat .l { color: var(--fg-dim); font-size: 12px; }
+
+  /* ---------- Log-Feed (Referenzen/Vertrauen) ---------- */
+  .log {
+    border: 1px solid var(--fg-dim);
+    padding: 4px 0;
+  }
+  .log-line {
+    padding: 8px 18px;
+    display: flex;
+    gap: 14px;
+    font-size: 13px;
+    border-bottom: 1px dotted var(--fg-dim);
+  }
+  .log-line:last-child { border-bottom: none; }
+  .log-line .ts { color: var(--fg-dim); white-space: nowrap; }
+  .log-line .tag { color: var(--alert); }
+  .log-line .tag.ok { color: var(--fg-bright); }
+
+  /* ---------- Kontaktformular ---------- */
+  .form-box {
+    border: 1px solid var(--fg);
+    padding: 24px;
+    position: relative;
+  }
+  .form-box::before,
+  .form-box::after {
+    content: "+";
+    position: absolute;
+    color: var(--fg-bright);
+  }
+  .form-box::before { top: -9px; left: -7px; }
+  .form-box::after  { bottom: -9px; right: -7px; }
+
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    color: var(--fg-dim);
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .field label::before { content: "$ "; }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    background: #000;
+    border: 1px solid var(--fg-dim);
+    color: var(--fg-bright);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 9px 10px;
+    outline: none;
+  }
+  .field input:focus,
+  .field textarea:focus {
+    border-color: var(--fg-bright);
+  }
+  .field textarea { resize: vertical; min-height: 100px; }
+
+  .field .hint { color: var(--fg-dim); font-size: 11px; margin-top: 4px; }
+
+  .form-msg {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--fg-bright);
+    display: none;
+  }
+  .form-msg.show { display: block; }
+
+  /* ---------- Footer ---------- */
+  .statusbar {
+    border-top: 1px solid var(--fg-dim);
+    margin-top: 50px;
+    padding: 16px 0 40px;
+    color: var(--fg-dim);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  section { padding: 50px 0; }
+
+  @media (max-width: 640px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px dashed var(--fg-dim); }
+    .stat:last-child { border-bottom: none; }
+    .brand { font-size: 26px; }
+  }
+
+  ::selection { background: var(--fg); color: var(--bg); }
+</style>
+</head>
+<body>
+
+  <div class="termbar">
+    <span class="dots"><span></span><span></span><span></span> cipherwatch@ops:~</span>
+    <span>SECURE SHELL — 256 bit</span>
+  </div>
+
+  <div class="wrap">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="boot-line">[ <span class="ok">OK</span> ] Verbindung zum Security Operations Center hergestellt</div>
+      <div class="boot-line">[ <span class="ok">OK</span> ] 14 Sensoren aktiv, 0 unautorisierte Zugriffe erkannt</div>
+      <div class="boot-line">[ <span class="ok">OK</span> ] Ladevorgang abgeschlossen — bereit</div>
+
+      <div class="brand">CIPHERWATCH</div>
+      <p class="tagline">
+        Monitoring, Penetrationstests und Incident Response für Unternehmen,
+        die keine zweite Chance beim Ernstfall haben.<span class="cursor"></span>
+      </p>
+
+      <div class="btn-row">
+        <a href="#kontakt" class="btn primary">Analyse anfordern</a>
+        <a href="#leistungen" class="btn">Leistungen ansehen</a>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- LEISTUNGEN -->
+    <section id="leistungen">
+      <div class="section-head">MENÜ · <b>Leistungen</b></div>
+      <h2>Was wir überwachen und absichern</h2>
+
+      <div class="menu-item">
+        <div class="num">01</div>
+        <div>
+          <h3>24/7 Threat Monitoring</h3>
+          <p>Kontinuierliche Überwachung Ihrer Infrastruktur mit Alarmierung innerhalb von Minuten, nicht Stunden.</p>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="num">02</div>
+        <div>
+          <h3>Penetrationstests</h3>
+          <p>Manuelle und automatisierte Angriffssimulationen auf Netzwerke, Webanwendungen und interne Systeme.</p>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="num">03</div>
+        <div>
+          <h3>Incident Response</h3>
+          <p>Sofortmaßnahmen im Ernstfall: Eindämmung, forensische Analyse, Wiederherstellung des Betriebs.</p>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="num">04</div>
+        <div>
+          <h3>Security Audits</h3>
+          <p>Prüfung von Konfigurationen, Berechtigungen und Prozessen gegen anerkannte Sicherheitsstandards.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- KENNZAHLEN -->
+    <section>
+      <div class="section-head">STATUS · <b>Betriebskennzahlen</b></div>
+      <div class="stat-grid">
+        <div class="stat">
+          <span class="n">04:12</span>
+          <span class="l">ø Reaktionszeit bei Vorfällen</span>
+        </div>
+        <div class="stat">
+          <span class="n">99.98%</span>
+          <span class="l">Monitoring-Verfügbarkeit</span>
+        </div>
+        <div class="stat">
+          <span class="n">120+</span>
+          <span class="l">abgeschlossene Audits</span>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- LOG / VERTRAUEN -->
+    <section>
+      <div class="section-head">LOG · <b>Aktuelle Einsätze</b></div>
+      <div class="log">
+        <div class="log-line">
+          <span class="ts">09:41:03</span>
+          <span class="tag ok">RESOLVED</span>
+          <span>Phishing-Kampagne bei Kunde aus dem Finanzsektor eingedämmt</span>
+        </div>
+        <div class="log-line">
+          <span class="ts">08:15:47</span>
+          <span class="tag ok">DEPLOYED</span>
+          <span>Neues Monitoring-Setup für e-commerce-Plattform live geschaltet</span>
+        </div>
+        <div class="log-line">
+          <span class="ts">Gestern</span>
+          <span class="tag">PATCHED</span>
+          <span>Kritische Schwachstelle in Kundeninfrastruktur geschlossen</span>
+        </div>
+        <div class="log-line">
+          <span class="ts">Mo, 07:30</span>
+          <span class="tag ok">COMPLETE</span>
+          <span>Penetrationstest für Logistikunternehmen abgeschlossen</span>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- KONTAKT -->
+    <section id="kontakt">
+      <div class="section-head">EINGABE · <b>Kontakt aufnehmen</b></div>
+      <h2>Analyse anfordern</h2>
+
+      <div class="form-box">
+        <form onsubmit="return handleSubmit(event)">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Max Mustermann">
+          </div>
+
+          <div class="field">
+            <label for="firma">Unternehmen</label>
+            <input type="text" id="firma" name="firma" placeholder="Firma GmbH">
+          </div>
+
+          <div class="field">
+            <label for="email">E-Mail</label>
+            <input type="email" id="email" name="email" required placeholder="max@firma.de">
+          </div>
+
+          <div class="field">
+            <label for="nachricht">Nachricht</label>
+            <textarea id="nachricht" name="nachricht" required placeholder="Beschreiben Sie kurz Ihr Anliegen..."></textarea>
+            <div class="hint">Verschlüsselte Übertragung, keine Weitergabe an Dritte.</div>
+          </div>
+
+          <button type="submit" class="btn primary">Anfrage senden</button>
+          <div id="formMsg" class="form-msg">&gt; Anfrage im Queue — Rückmeldung binnen 24h.<span class="cursor"></span></div>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="wrap">
+    <div class="statusbar">
+      <span>CIPHERWATCH SECURITY OPS — Demo-Frontend, keine echten Daten</span>
+      <span>F1=HILFE F5=REFRESH ESC=BEENDEN</span>
+    </div>
+  </div>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('formMsg').classList.add('show');
+      e.target.reset();
+      return false;
+    }
+  </script>
+
+</body>
+</html>
